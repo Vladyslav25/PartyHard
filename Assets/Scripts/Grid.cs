@@ -7,8 +7,9 @@ using Playfield.Node;
 public class Grid : MonoBehaviour
 {
     public ANode[,] Field;
+    [Header("Map")]
     public Vector2Int Size;
-
+    [Header("Settings")]
     public HoverEffectSettings GridSetting;
 
     public void Awake()
