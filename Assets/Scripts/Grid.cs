@@ -27,6 +27,8 @@ namespace Playfield
         public List<GameObject> NodePrefabs;
         [Header("Settings")]
         public HoverEffectSettings GridSetting;
+        [Header("DataManager")]
+        public PlayfieldData PlayfieldData;
 
         public void Awake()
         {
@@ -137,11 +139,18 @@ namespace Playfield
                 }
             }
             SetNeighbors();
+            Save();
         }
 
         public void Save()
         {
+            PlayfieldData.Field = EField;
+            PlayfieldData.PrintDebug();
+        }
 
+        public void Load()
+        {
+            CreatField(PlayfieldData.Field);
         }
     }
 }

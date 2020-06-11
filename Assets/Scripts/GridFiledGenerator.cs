@@ -39,12 +39,5 @@ namespace Playfield
             grid.CreatField(tmp_field);
         }
         #endregion
-
-        #region -Custom private Functions-
-
-
-
-
-        #endregion
     }
 }
