@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "HoverEffectSettings", menuName ="Settings/HoverEffect Settings", order = 100)]
+[CreateAssetMenu(fileName = "HoverEffectSettings", menuName ="ScObj/Settings/HoverEffect Settings", order = 1)]
 public class HoverEffectSettings : ScriptableObject
 {
     [Header("Settings")]
