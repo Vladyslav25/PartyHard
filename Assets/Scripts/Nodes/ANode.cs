@@ -35,15 +35,7 @@ namespace Playfield.Node
             m_grid = _grid;
             obj = _obj;
 
-            if (_obj != null)
-            {
-                //Set Hover Effect Settings
-                HoverEffect HE = obj.transform.GetComponentInChildren<HoverEffect>();
-                if (HE != null)
-                {
-                    HE.SetSettings(m_grid.GridSetting);
-                }
-            }
+            ApplyHoverSettings();
         }
 
         /// <summary>
@@ -53,6 +45,7 @@ namespace Playfield.Node
         public virtual void SetObjectRef(GameObject _obj)
         {
             obj = _obj;
+            ApplyHoverSettings();
         }
 
         /// <summary>
@@ -84,6 +77,19 @@ namespace Playfield.Node
                 output += $" | Left: {Left.Pos}";
             }
             Debug.Log($"Pos: {Pos}{output}");
+        }
+
+        private void ApplyHoverSettings()
+        {
+            if (obj != null)
+            {
+                //Set Hover Effect Settings
+                HoverEffect HE = obj.transform.GetComponentInChildren<HoverEffect>();
+                if (HE != null)
+                {
+                    HE.SetSettings(m_grid.GridSetting);
+                }
+            }
         }
     }
 }
