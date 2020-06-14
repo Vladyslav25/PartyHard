@@ -32,6 +32,16 @@ namespace Playfield
 
         public void Awake()
         {
+            // Adjust the Size  to the Generation
+            if (Size.x < 11) Size.x = 11;
+
+            if (Size.y < 11) Size.y = 11;
+
+            if (Size.x % 2 == 0) Size.x++;
+
+            if (Size.y % 2 == 0) Size.y++;
+
+            //Set Arrays
             Field = new ANode[Size.x, Size.y];
             EField = new ENodeType[Size.x, Size.y];
         }
@@ -88,7 +98,7 @@ namespace Playfield
                     index = 0;
                     break;
                 case ENodeType.RED:
-                    toAdd = new RedNode(_pos, this); 
+                    toAdd = new RedNode(_pos, this);
                     index = 1;
                     break;
                 case ENodeType.BLUE:
@@ -145,7 +155,6 @@ namespace Playfield
         public void Save()
         {
             PlayfieldData.Field = EField;
-            PlayfieldData.PrintDebug();
         }
 
         public void Load()

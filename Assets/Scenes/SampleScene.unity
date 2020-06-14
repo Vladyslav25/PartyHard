@@ -151,18 +151,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Field: {fileID: 716010476}
-  RedNodePrefab: {fileID: 9015399375738629117, guid: b85539e96cfa8b54c91d97b6b5c7cd6a,
-    type: 3}
-  BlueNodePrefab: {fileID: 6136260520823491815, guid: 7eac1f3b97db4f443a20785e24d983eb,
-    type: 3}
-  YellowNodePrefab: {fileID: 6829561630588077908, guid: 10ac3befc5533fb4d9d4e6243c0b99c1,
-    type: 3}
-  GreenNodePrefab: {fileID: 2024558729016068819, guid: 364f39652007eba4da6dc982429d8e3b,
-    type: 3}
-  BlackNodePrefab: {fileID: 3712833152112095997, guid: 4d9d0d6841f4d0747b56c4035f6eb59f,
-    type: 3}
-  WhiteNodePrefab: {fileID: 8086207410826804657, guid: e49f61bbb32817f4996f7491b9300edd,
-    type: 3}
 --- !u!4 &145752807
 Transform:
   m_ObjectHideFlags: 0
@@ -298,8 +286,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c4a193620dc57c4faa0666cd3def92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Size: {x: 20, y: 20}
+  Size: {x: 21, y: 21}
+  NodePrefabs:
+  - {fileID: 0}
+  - {fileID: 9015399375738629117, guid: b85539e96cfa8b54c91d97b6b5c7cd6a, type: 3}
+  - {fileID: 6136260520823491815, guid: 7eac1f3b97db4f443a20785e24d983eb, type: 3}
+  - {fileID: 6829561630588077908, guid: 10ac3befc5533fb4d9d4e6243c0b99c1, type: 3}
+  - {fileID: 3712833152112095997, guid: 4d9d0d6841f4d0747b56c4035f6eb59f, type: 3}
+  - {fileID: 8086207410826804657, guid: e49f61bbb32817f4996f7491b9300edd, type: 3}
+  - {fileID: 2024558729016068819, guid: 364f39652007eba4da6dc982429d8e3b, type: 3}
   GridSetting: {fileID: 11400000, guid: a69f81e01d3c9d942959413c382026b4, type: 2}
+  PlayfieldData: {fileID: 11400000, guid: d0bf1c31c8d95874a96491d121c1b98c, type: 2}
 --- !u!4 &716010478
 Transform:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ namespace Playfield
         /// <summary>
         /// The Grid-Component in the Field GameObject
         /// </summary>
-        private Grid grid; 
+        private Grid grid;
 
         private int rnd_int;
         #endregion
@@ -28,11 +28,24 @@ namespace Playfield
             {
                 for (int y = 0; y < grid.Size.y; y++)
                 {
-                    //Fill the Field with Random Nodes
-                    rnd_int = Random.Range(0, 7);
-                    ENodeType type = (ENodeType)rnd_int;
+                    if (x == 0 || y == 0
 
-                    tmp_field[x, y] = type;
+                        || x == grid.Size.x - 1 || y == grid.Size.y - 1      //Create border
+                        || x == grid.Size.x / 2 || y == grid.Size.y / 2 ||     //Create midcross
+
+                        x == grid.Size.x / 4 + 1 &&
+                        y > grid.Size.y / 4 && y < grid.Size.y * 3 / 4 ||
+
+                        x == grid.Size.x * 3 / 4 - 1 &&
+                        y > grid.Size.y / 4 && y < grid.Size.y * 3 / 4 ||
+
+                        y == grid.Size.y / 4 + 1 &&
+                        x > grid.Size.x / 4 && x < grid.Size.x * 3 / 4 ||
+
+                        y == grid.Size.y * 3 / 4 - 1 &&
+                        x > grid.Size.x / 4 && x < grid.Size.x * 3 / 4)
+
+                        tmp_field[x, y] = (ENodeType)Random.Range(1, 7);
                 }
             }
             #endregion
