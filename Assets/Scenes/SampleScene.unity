@@ -286,7 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c4a193620dc57c4faa0666cd3def92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Size: {x: 20, y: 20}
+  Size: {x: 15, y: 15}
   NodePrefabs:
   - {fileID: 0}
   - {fileID: 9015399375738629117, guid: b85539e96cfa8b54c91d97b6b5c7cd6a, type: 3}
