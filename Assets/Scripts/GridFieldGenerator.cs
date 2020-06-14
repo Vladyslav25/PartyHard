@@ -1,15 +1,21 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Playfield
 {
+    [DefaultExecutionOrder(-1)]
     public class GridFieldGenerator : MonoBehaviour
     {
         #region -Variables-
         [Header("GameObjects")]
         public GameObject Field;
+
+        [Header("Seed Settings")]
+        [SerializeField]
+        private bool useRandomSeed;
+        [SerializeField]
+        private string seed;
 
         /// <summary>
         /// The Grid-Component in the Field GameObject
@@ -19,6 +25,14 @@ namespace Playfield
         #endregion
 
         #region -Unity Functions-
+        private void Awake()
+        {
+            if (useRandomSeed)
+                Random.InitState((int)System.DateTime.Now.Ticks);
+            else
+                Random.InitState(seed.GetHashCode());
+        }
+
         void Start()
         {
             grid = Field.GetComponent<Grid>();

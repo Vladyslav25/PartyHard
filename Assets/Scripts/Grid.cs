@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Playfield.Node;
+using System.Drawing;
 
 namespace Playfield
 {
@@ -20,10 +21,18 @@ namespace Playfield
     public class Grid : MonoBehaviour
     {
         public ANode[,] Field; //For Gameplay
+
         private ENodeType[,] EField; //For Save and Load
+        [HideInInspector]
+        public Vector2Int Size;
 
         [Header("Field")]
-        public Vector2Int Size;
+        [Range(11,31)]
+        [SerializeField]
+        private int sizeHorizontal;
+        [Range(11,31)]
+        [SerializeField]
+        private int sizeVertical;
         public List<GameObject> NodePrefabs;
         [Header("Settings")]
         public HoverEffectSettings GridSetting;
@@ -34,6 +43,7 @@ namespace Playfield
 
         public void Awake()
         {
+            Size = new Vector2Int(sizeHorizontal, sizeVertical);
             // Adjust the Size for the Generator
             if (Size.x < 11) Size.x = 11;
 

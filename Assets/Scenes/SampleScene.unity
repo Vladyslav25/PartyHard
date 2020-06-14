@@ -151,6 +151,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Field: {fileID: 716010476}
+  useRandomSeed: 1
+  seed: pop
 --- !u!4 &145752807
 Transform:
   m_ObjectHideFlags: 0
@@ -287,6 +289,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Size: {x: 15, y: 15}
+  sizeHorizontal: 19
+  sizeVertical: 23
   NodePrefabs:
   - {fileID: 0}
   - {fileID: 9015399375738629117, guid: b85539e96cfa8b54c91d97b6b5c7cd6a, type: 3}
