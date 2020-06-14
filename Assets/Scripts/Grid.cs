@@ -22,7 +22,7 @@ namespace Playfield
         public ANode[,] Field; //For Gameplay
         private ENodeType[,] EField; //For Save and Load
 
-        [Header("Map")]
+        [Header("Field")]
         public Vector2Int Size;
         public List<GameObject> NodePrefabs;
         [Header("Settings")]

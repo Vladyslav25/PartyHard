@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Playfield
 {
-    public class GridFiledGenerator : MonoBehaviour
+    public class GridFieldGenerator : MonoBehaviour
     {
         #region -Variables-
         [Header("GameObjects")]
@@ -24,7 +24,7 @@ namespace Playfield
             grid = Field.GetComponent<Grid>();
             ENodeType[,] tmp_field = new ENodeType[grid.Field.GetLength(0), grid.Field.GetLength(1)];
 
-            #region -Generate Map-
+            #region -Generate Field-
             bool[,] isoGrid = new bool[grid.Field.GetLength(0), grid.Field.GetLength(1)];
 
             //Fill a quater of the isoGrid
