@@ -203,8 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a19f26298b1f1da46a6fb4c7b1c47221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 0
-  Offset: 0
+  setting: {fileID: 11400000, guid: a69f81e01d3c9d942959413c382026b4, type: 2}
 --- !u!1 &9015399375738629117
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,7 +214,7 @@ GameObject:
   m_Component:
   - component: {fileID: 565348138344043810}
   m_Layer: 0
-  m_Name: GridRed
+  m_Name: NodeRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -30,9 +30,11 @@ namespace Playfield
         [Header("DataManager")]
         public PlayfieldData PlayfieldData;
 
+        private float timer;
+
         public void Awake()
         {
-            // Adjust the Size  to the Generation
+            // Adjust the Size for the Generator
             if (Size.x < 11) Size.x = 11;
 
             if (Size.y < 11) Size.y = 11;
