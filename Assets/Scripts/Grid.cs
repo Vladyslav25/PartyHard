@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Playfield.Node;
 using System.Drawing;
+using UnityEngine.SceneManagement;
 
 namespace Playfield
 {
@@ -36,8 +37,6 @@ namespace Playfield
         public List<GameObject> NodePrefabs;
         [Header("Settings")]
         public HoverEffectSettings GridSetting;
-        [Header("DataManager")]
-        public PlayfieldData PlayfieldData;
 
         private float timer;
 
@@ -56,6 +55,15 @@ namespace Playfield
             //Set Arrays
             Field = new ANode[Size.x, Size.y];
             EField = new ENodeType[Size.x, Size.y];
+        }
+
+        private void Update()
+        {
+            timer += Time.deltaTime;
+            if(timer > 3)
+            {
+                SceneManager.LoadScene("Test");
+            }
         }
 
         /// <summary>
@@ -166,12 +174,12 @@ namespace Playfield
 
         public void Save()
         {
-            PlayfieldData.Field = EField;
+            DataManager.GetPlayfiledData().Field = EField;
         }
 
         public void Load()
         {
-            CreatField(PlayfieldData.Field);
+            CreatField(DataManager.GetPlayfiledData().Field);
         }
     }
 }

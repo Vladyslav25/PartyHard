@@ -300,7 +300,6 @@ MonoBehaviour:
   - {fileID: 8086207410826804657, guid: e49f61bbb32817f4996f7491b9300edd, type: 3}
   - {fileID: 2024558729016068819, guid: 364f39652007eba4da6dc982429d8e3b, type: 3}
   GridSetting: {fileID: 11400000, guid: a69f81e01d3c9d942959413c382026b4, type: 2}
-  PlayfieldData: {fileID: 11400000, guid: d0bf1c31c8d95874a96491d121c1b98c, type: 2}
 --- !u!4 &716010478
 Transform:
   m_ObjectHideFlags: 0
@@ -397,4 +396,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1994776388
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1994776390}
+  - component: {fileID: 1994776389}
+  m_Layer: 0
+  m_Name: DataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1994776389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1994776388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d00b01e2cdc8eb743ba2ccb1cd31f1cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playfieldDataRef: {fileID: 11400000, guid: d0bf1c31c8d95874a96491d121c1b98c, type: 2}
+  hoverEffectSettingRef: {fileID: 11400000, guid: a69f81e01d3c9d942959413c382026b4,
+    type: 2}
+--- !u!4 &1994776390
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1994776388}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
