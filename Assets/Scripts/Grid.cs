@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Playfield.Node;
+using System.Drawing;
+using UnityEngine.SceneManagement;
 
 namespace Playfield
 {
@@ -20,20 +22,27 @@ namespace Playfield
     public class Grid : MonoBehaviour
     {
         public ANode[,] Field; //For Gameplay
+
         private ENodeType[,] EField; //For Save and Load
+        [HideInInspector]
+        public Vector2Int Size;
 
         [Header("Field")]
-        public Vector2Int Size;
+        [Range(11,31)]
+        [SerializeField]
+        private int sizeHorizontal;
+        [Range(11,31)]
+        [SerializeField]
+        private int sizeVertical;
         public List<GameObject> NodePrefabs;
         [Header("Settings")]
         public HoverEffectSettings GridSetting;
-        [Header("DataManager")]
-        public PlayfieldData PlayfieldData;
 
         private float timer;
 
         public void Awake()
         {
+            Size = new Vector2Int(sizeHorizontal, sizeVertical);
             // Adjust the Size for the Generator
             if (Size.x < 11) Size.x = 11;
 
@@ -46,6 +55,15 @@ namespace Playfield
             //Set Arrays
             Field = new ANode[Size.x, Size.y];
             EField = new ENodeType[Size.x, Size.y];
+        }
+
+        private void Update()
+        {
+            timer += Time.deltaTime;
+            if(timer > 3)
+            {
+                SceneManager.LoadScene("Test");
+            }
         }
 
         /// <summary>
@@ -156,12 +174,12 @@ namespace Playfield
 
         public void Save()
         {
-            PlayfieldData.Field = EField;
+            DataManager.GetPlayfiledData().Field = EField;
         }
 
         public void Load()
         {
-            CreatField(PlayfieldData.Field);
+            CreatField(DataManager.GetPlayfiledData().Field);
         }
     }
 }
