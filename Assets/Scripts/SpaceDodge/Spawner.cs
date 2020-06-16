@@ -33,14 +33,17 @@ namespace SpaceDodge
         void Update()
         {
             speedTimer += Time.deltaTime;
-            if (speedTimer > 10f)
+            if (speedTimer > 7f)
             {
                 speed += SpeedImprove;
                 speedTimer = 0;
                 level++;
                 if (level % 2 == 0)
                 {
-                    maxTime -= 0.3f;
+                    if (maxTime > 0.3f)
+                        maxTime -= 0.35f;
+                    if (minTime > 0.2f)
+                        minTime -= 0.15f;
                 }
                 Debug.Log(speed);
             }
