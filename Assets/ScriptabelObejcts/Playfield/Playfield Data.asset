@@ -12,4 +12,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7a18c0384ef24419ad5e0ad1931383, type: 3}
   m_Name: Playfield Data
   m_EditorClassIdentifier: 
-  Size: {x: 0, y: 0}
