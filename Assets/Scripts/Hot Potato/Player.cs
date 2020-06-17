@@ -21,6 +21,11 @@ namespace HotPotato
 
         #endregion
 
+        private void Awake()
+        {
+            PotatoManager.AddPlayer(this);
+        }
+
         private void Update()
         {
             // Handle the Timeout Duration
