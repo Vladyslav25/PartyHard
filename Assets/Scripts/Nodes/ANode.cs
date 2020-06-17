@@ -20,6 +20,9 @@ namespace Playfield.Node
         //Position in World
         public Vector3 Pos;
 
+        //Position for the Player
+        public Vector3 StayPos;
+
         //Referenc to the Grid
         private Grid m_grid;
 
@@ -32,6 +35,7 @@ namespace Playfield.Node
         public ANode(Vector3 _pos, Grid _grid, GameObject _obj = null)
         {
             Pos = _pos;
+            StayPos = _pos + new Vector3(.5f, 0, .5f);
             m_grid = _grid;
             obj = _obj;
         }
