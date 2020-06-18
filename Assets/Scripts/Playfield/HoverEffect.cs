@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class HoverEffect : MonoBehaviour
 {
-    public HoverEffectSettings setting;
+    private HoverEffectSettings setting;
 
     private float x;
     private float rnd_offset;
@@ -13,6 +13,7 @@ public class HoverEffect : MonoBehaviour
     private void OnEnable()
     {
         rnd_offset = UnityEngine.Random.Range(0, 8);
+        setting = DataManager.GetHoverEffectSettings();
     }
 
     private void Update()
