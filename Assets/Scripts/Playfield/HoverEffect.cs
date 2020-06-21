@@ -13,7 +13,7 @@ public class HoverEffect : MonoBehaviour
     private void OnEnable()
     {
         rnd_offset = UnityEngine.Random.Range(0, 8);
-        setting = DataManager.GetHoverEffectSettings();
+        setting = DataManager.Instance.GetHoverEffectSettings();
     }
 
     private void Update()
