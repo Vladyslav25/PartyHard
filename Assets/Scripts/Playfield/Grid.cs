@@ -174,12 +174,12 @@ namespace Playfield
 
         public void Save()
         {
-            DataManager.GetPlayfiledData().Field = EField;
+            DataManager.Instance.GetPlayfiledData().Field = EField;
         }
 
         public void Load()
         {
-            CreatField(DataManager.GetPlayfiledData().Field);
+            CreatField(DataManager.Instance.GetPlayfiledData().Field);
         }
     }
 }

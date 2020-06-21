@@ -39,7 +39,7 @@ namespace Playfield
             grid = Field.GetComponent<Grid>();
             ENodeType[,] tmp_field = new ENodeType[grid.Field.GetLength(0), grid.Field.GetLength(1)];
 
-            if (DataManager.GetPlayfiledData().Field == null)
+            if (DataManager.Instance.GetPlayfiledData().Field == null)
             {
                 #region -Generate Field-
                 bool[,] isoGrid = new bool[grid.Field.GetLength(0), grid.Field.GetLength(1)];
@@ -86,7 +86,7 @@ namespace Playfield
             }
             else
             {
-                grid.CreatField(DataManager.GetPlayfiledData().Field);
+                grid.CreatField(DataManager.Instance.GetPlayfiledData().Field);
             }
         }
         #endregion

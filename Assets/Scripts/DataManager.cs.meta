@@ -3,7 +3,10 @@ guid: d00b01e2cdc8eb743ba2ccb1cd31f1cb
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - playfieldDataRef: {fileID: 11400000, guid: d0bf1c31c8d95874a96491d121c1b98c, type: 2}
+  - hoverEffectSettingRef: {fileID: 11400000, guid: a69f81e01d3c9d942959413c382026b4,
+      type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

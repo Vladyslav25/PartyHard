@@ -48,26 +48,26 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    public static PlayfieldData GetPlayfiledData()
+    public PlayfieldData GetPlayfiledData()
     {
         if (playfieldData != null)
             return playfieldData;
         return null;
     }
 
-    public static void SetPlayfieldData(PlayfieldData _dataRef)
+    public void SetPlayfieldData(PlayfieldData _dataRef)
     {
         playfieldData = _dataRef;
     }
 
-    public static HoverEffectSettings GetHoverEffectSettings()
+    public HoverEffectSettings GetHoverEffectSettings()
     {
         if (hoverEffectSetting != null)
             return hoverEffectSetting;
         return null;
     }
 
-    public static void SetHoverEffectSettings(HoverEffectSettings _dataRef)
+    public void SetHoverEffectSettings(HoverEffectSettings _dataRef)
     {
         hoverEffectSetting = _dataRef;
     }
