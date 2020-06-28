@@ -8,11 +8,10 @@ public class DataManager : MonoBehaviour
     private PlayfieldData playfieldDataRef;
     [SerializeField]
     private HoverEffectSettings hoverEffectSettingRef;
+    [SerializeField]
+    private PlayersData playerDataRef;
 
     private static DataManager m_instance;
-
-    private static PlayfieldData playfieldData;
-    private static HoverEffectSettings hoverEffectSetting;
 
     public static DataManager Instance
     {
@@ -43,6 +42,7 @@ public class DataManager : MonoBehaviour
 
             SetPlayfieldData(playfieldDataRef);
             SetHoverEffectSettings(hoverEffectSettingRef);
+            SetPlayerDataRef(playerDataRef);
 
             DontDestroyOnLoad(this.gameObject);
         }
@@ -50,26 +50,37 @@ public class DataManager : MonoBehaviour
 
     public PlayfieldData GetPlayfiledData()
     {
-        if (playfieldData != null)
-            return playfieldData;
+        if (playfieldDataRef != null)
+            return playfieldDataRef;
         return null;
     }
 
     public void SetPlayfieldData(PlayfieldData _dataRef)
     {
-        playfieldData = _dataRef;
+        playfieldDataRef = _dataRef;
     }
 
     public HoverEffectSettings GetHoverEffectSettings()
     {
-        if (hoverEffectSetting != null)
-            return hoverEffectSetting;
+        if (hoverEffectSettingRef != null)
+            return hoverEffectSettingRef;
         return null;
     }
 
     public void SetHoverEffectSettings(HoverEffectSettings _dataRef)
     {
-        hoverEffectSetting = _dataRef;
+        hoverEffectSettingRef = _dataRef;
     }
 
+    public PlayersData GetPlayerData()
+    {
+        if (playerDataRef != null)
+            return playerDataRef;
+        return null;
+    }
+
+    public void SetPlayerDataRef(PlayersData _dataref)
+    {
+        playerDataRef = _dataref;
+    }
 }

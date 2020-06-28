@@ -2328,7 +2328,7 @@
                     "id": "b78a6504-68a9-423b-9c68-e2937fe7c1b9",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press"
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -2336,6 +2336,17 @@
                     "name": "",
                     "id": "2a9f3c88-193c-4e1b-850c-123484e6a62a",
                     "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "AddPlayer",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "31761d7b-1ef6-4899-a90e-e9a090a625c6",
+                    "path": "<Keyboard>/numpad0",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
