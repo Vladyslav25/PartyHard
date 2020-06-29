@@ -7,21 +7,20 @@ namespace MainMenu
 {
     public class PlayerManager : MonoBehaviour
     {
+        [SerializeField]
+        private UIManager m_UIMangerRef;
+
         private int count = -1;
         public void OnPlayerJoined(PlayerInput _playerInput)
         {
-            int  i = _playerInput.devices.Count;
             count++;
             if (count < 4)
             {
-                BasePlayer tmpPlayer = new BasePlayer(_playerInput.actions,
-                                                        _playerInput.gameObject,
-                                                        _playerInput.currentControlScheme,
-                                                        count);
+                BasePlayer tmpPlayer = new BasePlayer(_playerInput, count);
 
                 DataManager.Instance.GetPlayerData().AddPlayer(tmpPlayer);
-
-                Debug.Log("Add PlayerID: " + tmpPlayer.m_Id+ " CS: " + tmpPlayer.m_ControlScheme.name);
+                m_UIMangerRef.AddPlayer(tmpPlayer);
+                tmpPlayer.m_objRef.GetComponent<Player>().SetBasePlayer(tmpPlayer);
             }
         }
     }

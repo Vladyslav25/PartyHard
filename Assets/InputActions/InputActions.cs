@@ -2342,6 +2342,14 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Start"",
+                    ""type"": ""Button"",
+                    ""id"": ""6541480a-e5c8-473d-9a04-690d791aa0e2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -2375,6 +2383,28 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""AddPlayer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""42b83b68-b6a8-4b3f-854d-3c8c87af994e"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Start"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ca8f1563-82a2-481d-a44e-d268ad9407bd"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Start"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -2485,6 +2515,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         // MainMenu
         m_MainMenu = asset.FindActionMap("MainMenu", throwIfNotFound: true);
         m_MainMenu_AddPlayer = m_MainMenu.FindAction("AddPlayer", throwIfNotFound: true);
+        m_MainMenu_Start = m_MainMenu.FindAction("Start", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -3274,11 +3305,13 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputActionMap m_MainMenu;
     private IMainMenuActions m_MainMenuActionsCallbackInterface;
     private readonly InputAction m_MainMenu_AddPlayer;
+    private readonly InputAction m_MainMenu_Start;
     public struct MainMenuActions
     {
         private @InputActions m_Wrapper;
         public MainMenuActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @AddPlayer => m_Wrapper.m_MainMenu_AddPlayer;
+        public InputAction @Start => m_Wrapper.m_MainMenu_Start;
         public InputActionMap Get() { return m_Wrapper.m_MainMenu; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -3291,6 +3324,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @AddPlayer.started -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnAddPlayer;
                 @AddPlayer.performed -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnAddPlayer;
                 @AddPlayer.canceled -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnAddPlayer;
+                @Start.started -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnStart;
+                @Start.performed -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnStart;
+                @Start.canceled -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnStart;
             }
             m_Wrapper.m_MainMenuActionsCallbackInterface = instance;
             if (instance != null)
@@ -3298,6 +3334,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @AddPlayer.started += instance.OnAddPlayer;
                 @AddPlayer.performed += instance.OnAddPlayer;
                 @AddPlayer.canceled += instance.OnAddPlayer;
+                @Start.started += instance.OnStart;
+                @Start.performed += instance.OnStart;
+                @Start.canceled += instance.OnStart;
             }
         }
     }
@@ -3413,5 +3452,6 @@ public class @InputActions : IInputActionCollection, IDisposable
     public interface IMainMenuActions
     {
         void OnAddPlayer(InputAction.CallbackContext context);
+        void OnStart(InputAction.CallbackContext context);
     }
 }
