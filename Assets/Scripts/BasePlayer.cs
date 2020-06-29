@@ -7,29 +7,29 @@ using UnityEngine.InputSystem;
 
 public enum COLOR
 {
-    NONE,
     RED,
     BLUE,
     GREEN,
-    YELLOW
+    YELLOW,
+
+    NONE
 }
 public class BasePlayer
 {
     public InputActionAsset m_inputActionRef { get; private set; }
     public InputControlScheme m_ControlScheme { get; private set; }
-    public COLOR m_Color { get; private set; }
     public int m_Id { get; private set; }
-
+    public COLOR m_color { get; private set; }
 
     private GameObject objRef;
 
-    public BasePlayer(InputActionAsset _inputActionsRef, GameObject _objRef, string _controlScheme, COLOR _color, int _id)
+    public BasePlayer(InputActionAsset _inputActionsRef, GameObject _objRef, string _controlScheme, int _id)
     {
         objRef = _objRef;
         SetInputActionRef(_inputActionsRef);
         SetInputControlScheme(_controlScheme);
-        SetColor(_color);
         SetID(_id);
+        m_color = (COLOR)_id;
     }
 
     public void SetInputActionRef(InputActionAsset _inputActionsRef)
@@ -41,16 +41,15 @@ public class BasePlayer
     {
         if (_name == "" || _name == null)
             return false;
-        if (m_inputActionRef.controlSchemes.Contains(new InputControlScheme(_name)))
-        {
-            return true;
-        }
-        return false;
-    }
 
-    public void SetColor(COLOR _color)
-    {
-        m_Color = _color;
+        foreach (InputControlScheme cs in m_inputActionRef.controlSchemes)
+            if (cs.name == _name)
+            {
+                m_ControlScheme = cs;
+                return true;
+            }
+
+        return false;
     }
 
     public void SetID(int _id)

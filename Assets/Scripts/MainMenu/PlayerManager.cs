@@ -7,28 +7,21 @@ namespace MainMenu
 {
     public class PlayerManager : MonoBehaviour
     {
-        public InputActionAsset m_InputActionRef;
-
         private int count = -1;
         public void OnPlayerJoined(PlayerInput _playerInput)
         {
+            int  i = _playerInput.devices.Count;
             count++;
             if (count < 4)
             {
                 BasePlayer tmpPlayer = new BasePlayer(_playerInput.actions,
                                                         _playerInput.gameObject,
                                                         _playerInput.currentControlScheme,
-                                                        (COLOR)count + 1,
                                                         count);
 
                 DataManager.Instance.GetPlayerData().AddPlayer(tmpPlayer);
-                PlayersData d = DataManager.Instance.GetPlayerData();
 
-                if(_playerInput.currentControlScheme == null)
-                {
-                    Debug.Log("NoGameObj");
-                }
-                Debug.Log("Add PlayerID: " + tmpPlayer.m_Id + " Color: " + tmpPlayer.m_Color.ToString());
+                Debug.Log("Add PlayerID: " + tmpPlayer.m_Id+ " CS: " + tmpPlayer.m_ControlScheme.name);
             }
         }
     }
