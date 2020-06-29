@@ -5,15 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Test : MonoBehaviour
 {
-    public float timer;
-
-    // Update is called once per frame
-    void Update()
+    private void OnAddPlayer()
     {
-        timer += Time.deltaTime;
-        if (timer > 3)
-        {
-            SceneManager.LoadScene("Playfield");
-        }
+        Debug.Log("I was added");
     }
 }
