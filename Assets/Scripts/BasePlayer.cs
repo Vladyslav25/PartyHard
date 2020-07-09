@@ -24,6 +24,8 @@ public class BasePlayer
     public COLOR m_color { get; private set; } // The Color the Player have
     public GameObject m_objRef { get; private set; } // The Ref to the GameObject of the Player
 
+    public Vector3 m_PlayfieldPos;
+
     private PlayerInput m_playerInputRef = null;
 
     /// <param name="_inputActionsRef">The Ref to the ActionMap</param>

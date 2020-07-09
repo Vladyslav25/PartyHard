@@ -153,6 +153,11 @@ MonoBehaviour:
   Field: {fileID: 716010476}
   useRandomSeed: 1
   seed: pop
+  PlayerPrefab:
+  - {fileID: 5558621423534717928, guid: 9e8fa5157c96f744da0a4d19778f23c3, type: 3}
+  - {fileID: 5558621423534717928, guid: 8fd5155656a1e0e47b95baba7be7a588, type: 3}
+  - {fileID: 5558621423534717928, guid: 891d8c9f48ab87d4787e3d2c674b583c, type: 3}
+  - {fileID: 5558621423534717928, guid: 7506f78a14f062444b6e64872a80bca0, type: 3}
 --- !u!4 &145752807
 Transform:
   m_ObjectHideFlags: 0
@@ -429,6 +434,7 @@ MonoBehaviour:
   playfieldDataRef: {fileID: 11400000, guid: d0bf1c31c8d95874a96491d121c1b98c, type: 2}
   hoverEffectSettingRef: {fileID: 11400000, guid: a69f81e01d3c9d942959413c382026b4,
     type: 2}
+  playerDataRef: {fileID: 11400000, guid: 42f7b54f846cd25439e2b12f83f02a33, type: 2}
 --- !u!4 &1994776390
 Transform:
   m_ObjectHideFlags: 0

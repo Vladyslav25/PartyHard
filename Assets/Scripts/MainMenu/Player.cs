@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace MainMenu
 {
@@ -20,7 +21,7 @@ namespace MainMenu
             if (m_basePlayer != null)
                 if (DataManager.Instance.GetPlayerData().PlayerCount > 1 && m_basePlayer.m_Id == 0)
                 {
-                    Debug.Log("Change Scene");
+                    SceneManager.LoadScene("Playfield");
                 }
         }
     }

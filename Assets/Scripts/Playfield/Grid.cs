@@ -57,15 +57,6 @@ namespace Playfield
             EField = new ENodeType[Size.x, Size.y];
         }
 
-        private void Update()
-        {
-            timer += Time.deltaTime;
-            if(timer > 3)
-            {
-                SceneManager.LoadScene("Test");
-            }
-        }
-
         /// <summary>
         /// Set the Neighbors of the Nodes
         /// </summary>

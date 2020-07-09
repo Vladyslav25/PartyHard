@@ -2198,7 +2198,7 @@
                 {
                     "name": "up",
                     "id": "c191bc6f-c585-4e0b-8707-fb2aca6188e4",
-                    "path": "<Gamepad>/dpad",
+                    "path": "<Gamepad>/dpad/up",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -2243,7 +2243,7 @@
                     "name": "[Gamepad] LeftStick",
                     "id": "61ae73fd-9bd4-4d57-851e-c5b969c26618",
                     "path": "2DVector",
-                    "interactions": "",
+                    "interactions": "Tap(duration=0.1,pressPoint=0.1)",
                     "processors": "",
                     "groups": "",
                     "action": "Move",

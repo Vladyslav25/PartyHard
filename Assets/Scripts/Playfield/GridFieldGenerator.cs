@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,11 +18,15 @@ namespace Playfield
         [SerializeField]
         private string seed;
 
+        [Header("Prefabs")]
+        public GameObject[] PlayerPrefab;
+
 
         /// <summary>
         /// The Grid-Component in the Field GameObject
         /// </summary>
         private Grid grid;
+        private Vector3[] SpawnPoints = new Vector3[4];
 
         #endregion
 
@@ -29,9 +34,9 @@ namespace Playfield
         private void Awake()
         {
             if (useRandomSeed)
-                Random.InitState((int)System.DateTime.Now.Ticks);
+                UnityEngine.Random.InitState((int)System.DateTime.Now.Ticks);
             else
-                Random.InitState(seed.GetHashCode());
+                UnityEngine.Random.InitState(seed.GetHashCode());
         }
 
         void Start()
@@ -82,14 +87,48 @@ namespace Playfield
                 }
 
                 #endregion
+
                 grid.CreatField(tmp_field);
+
+                Vector3 offset = Vector3.up * 3f;
+
+                SpawnPoints[0] = offset + grid.Field[0, 0].Pos;
+                SpawnPoints[1] = offset + grid.Field[0, grid.Size.y - 1].Pos;
+                SpawnPoints[2] = offset + grid.Field[grid.Size.x - 1, 0].Pos;
+                SpawnPoints[3] = offset + grid.Field[grid.Size.x - 1, grid.Size.y - 1].Pos;
+                if (DataManager.Instance.GetPlayerData() != null)
+                {
+                    LoadPlayer(true);
+                }
             }
             else
             {
                 grid.CreatField(DataManager.Instance.GetPlayfiledData().Field);
+
+                if (DataManager.Instance.GetPlayerData() != null)
+                {
+                    LoadPlayer();
+                }
             }
         }
         #endregion
+
+        private void LoadPlayer(bool _setOnSpwan = false)
+        {
+            for (int i = 0; i < DataManager.Instance.GetPlayerData().PlayerCount; i++)
+            {
+                BasePlayer bPlayerTmp = DataManager.Instance.GetPlayerData().GetPlayerByID(i);
+                GameObject obj;
+                if (_setOnSpwan)
+                    obj = Instantiate(PlayerPrefab[i], SpawnPoints[i], Quaternion.Euler(0, 0, 0));
+                else
+                    obj = Instantiate(PlayerPrefab[i], DataManager.Instance.GetPlayerData().GetPlayerByID(i).m_PlayfieldPos, Quaternion.Euler(0, 0, 0));
+
+                bPlayerTmp.SetGameObjectRef(obj);
+                obj.GetComponent<Playfield.Player>().m_BasePlayer = bPlayerTmp;
+                bPlayerTmp.SetInputControlScheme(bPlayerTmp.m_ControlScheme.name);
+            }
+        }
 
         private bool[,] FlipHorizontal(bool[,] _arrayToFlip)
         {
