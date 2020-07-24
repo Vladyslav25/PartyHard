@@ -8,7 +8,7 @@ using System.Drawing;
 public class PlayfieldData : ScriptableObject
 {
     public ENodeType[,] Field;
-    public Dictionary<BasePlayer, Vector2> PlayerPos = new Dictionary<BasePlayer, Vector2>();
+    public int Round;
 
     public void PrintDebug()
     {

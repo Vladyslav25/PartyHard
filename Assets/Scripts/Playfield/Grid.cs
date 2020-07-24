@@ -28,10 +28,10 @@ namespace Playfield
         public Vector2Int Size;
 
         [Header("Field")]
-        [Range(11,31)]
+        [Range(11, 31)]
         [SerializeField]
         private int sizeHorizontal;
-        [Range(11,31)]
+        [Range(11, 31)]
         [SerializeField]
         private int sizeVertical;
         public List<GameObject> NodePrefabs;
@@ -66,16 +66,23 @@ namespace Playfield
             {
                 for (int y = 0; y < Field.GetLength(1); y++)
                 {
-                    if (Field[x, y] == null) continue;                                         //if there is no Node on this Position
+                    if (Field[x, y] == null) continue; //if there is no Node on this Position
 
-                    if (!(x + 1 > Field.GetLength(0) - 1) && (Field[x + 1, y] != null))   //if the right Node is inside Range and
-                        Field[x, y].Right = Field[x + 1, y];                                  //if it exist
-                    if (!(x - 1 < 0) && (Field[x - 1, y] != null))                             //if the left Node is inside Range and
-                        Field[x, y].Left = Field[x - 1, y];                                   //if it exist
-                    if (!(y + 1 > Field.GetLength(1) - 1) && (Field[x, y + 1] != null))   //if the Above Node is in Range and
-                        Field[x, y].Above = Field[x, y + 1];                                  //if it exist
-                    if (!(y - 1 < 0) && (Field[x, y - 1] != null))                             // if the Under Node is in Range and
-                        Field[x, y].Under = Field[x, y - 1];                                  //if it exist
+                    if (!(x + 1 > Field.GetLength(0) - 1) && (Field[x + 1, y] != null) //if the right Node is inside Range and
+                        && EField[x + 1, y] != 0) //if it exist
+                        Field[x, y].Right = Field[x + 1, y];
+                    if (!(x - 1 < 0) && (Field[x - 1, y] != null) //if the left Node is inside Range and
+                        && EField[x - 1, y] != 0
+                        ) //if it exist
+                        Field[x, y].Left = Field[x - 1, y];
+                    if (!(y + 1 > Field.GetLength(1) - 1) && (Field[x, y + 1] != null) //if the Above Node is in Range and
+                        && EField[x, y + 1] != 0
+                        ) //if it exist
+                        Field[x, y].Above = Field[x, y + 1];
+                    if (!(y - 1 < 0) && (Field[x, y - 1] != null) // if the Under Node is in Range and
+                        && EField[x, y - 1] != 0
+                        ) //if it exist
+                        Field[x, y].Under = Field[x, y - 1];
                 }
             }
         }
