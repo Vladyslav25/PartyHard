@@ -1,6 +1,5 @@
 ﻿using Playfield.Node;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Playfield
@@ -9,6 +8,38 @@ namespace Playfield
     {
         static GameObject m_activPlayerObj;
         public static Player m_activPlayer;
+
+        private static PlayfieldManager m_instance;
+
+        public PlayfieldManager Instance
+        {
+            get
+            {
+                if (m_instance == null)
+                {
+                    m_instance = FindObjectOfType<PlayfieldManager>();
+
+                    if (m_instance == null)
+                    {
+                        GameObject container = new GameObject("DataManager");
+                        m_instance = container.AddComponent<PlayfieldManager>();
+                    }
+                }
+                return m_instance;
+            }
+        }
+
+        private void Awake()
+        {
+            if (m_instance != null && m_instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                m_instance = this;
+            }
+        }
 
         private void Start()
         {
@@ -35,20 +66,6 @@ namespace Playfield
             }
 
             Debug.Log("Its your Turn Player: " + (m_activPlayer.m_BasePlayer.m_Id + 1));
-        }
-
-        public static bool MovePlayer(int _id, Vector2 _dir)
-        {
-            if (DataManager.Instance.GetPlayerData().GetPlayerByID(_id) == m_activPlayer.m_BasePlayer)
-            {
-                if (CheckForMove(m_activPlayer.m_BasePlayer.m_PlayfieldPos, _dir))
-                {
-                    m_activPlayer.m_BasePlayer.m_PlayfieldPos += new Vector2Int((int)_dir.x, (int)_dir.y);
-                    GridFieldGenerator.SetPlayerObjPos(_id, m_activPlayer.m_BasePlayer.m_PlayfieldPos);
-                    return true;
-                }
-            }
-            return false;
         }
 
         public static bool CheckForMove(Vector2Int _playerPos, Vector2 _dir)

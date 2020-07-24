@@ -23,7 +23,6 @@ namespace Playfield
         [Header("Prefabs")]
         public GameObject[] PlayerPrefab;
 
-
         /// <summary>
         /// The Grid-Component in the Field GameObject
         /// </summary>
@@ -171,11 +170,6 @@ namespace Playfield
             }
 
             return output;
-        }
-
-        public static void SetPlayerObjPos(int _id, Vector2Int _newPos)
-        {
-            DataManager.Instance.GetPlayerData().GetPlayerByID(_id).m_objRef.transform.position = m_Grid.Field[_newPos.x, _newPos.y].StayPos;
         }
     }
 }
