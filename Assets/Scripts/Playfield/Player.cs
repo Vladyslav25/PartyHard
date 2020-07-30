@@ -18,11 +18,22 @@ namespace Playfield
         private bool MovePlayer = false;
         private Vector3 destination;
 
-        public int Points { get; private set; }
+        public int MovePoints
+        {
+            get
+            {
+                return numberOfPoints;
+            }
+            set
+            {
+                numberOfPoints = value;
+                UIManager.Instance.SetMovePoints(numberOfPoints);
+            }
+        }
 
         private void Update()
         {
-            if (numberOfPoints != -1) //if the player rolled the dices
+            if (MovePoints != -1) //if the player rolled the dices
                 if (MovePlayer && !needDir) //if the Player can move and dont need a new direction
                 {
                     transform.position = Vector3.MoveTowards(transform.position, destination, Time.deltaTime * 8f); //Move Player
@@ -30,11 +41,11 @@ namespace Playfield
                     {
                         MovePlayer = false; //player cant move
                         m_BasePlayer.m_PlayfieldPos = new Vector2Int(m_BasePlayer.m_PlayfieldPos.x + (int)moveDirection.x, m_BasePlayer.m_PlayfieldPos.y + (int)moveDirection.y); //Update his Position in the BasePlayer
-                        numberOfPoints--; //Reduce the Amount of Moves
+                        MovePoints--; //Reduce the Amount of Moves
                         return;
                     }
                 }
-                else if (numberOfPoints != 0) // if the player cant Move, need a need Direction but not all his Moves were done
+                else if (MovePoints != 0) // if the player cant Move, need a need Direction but not all his Moves were done
                 {
                     if (PlayfieldManager.GetAmountOfNeigbors(m_BasePlayer.m_PlayfieldPos) == 2) //if the Player cant deside a new direction (go around a corner)
                     {
@@ -80,15 +91,18 @@ namespace Playfield
                     }
                     else //if the Player need to choose a new direction
                     {
-                        needDir = true;
-                        Debug.Log("Choose a new Direction");
-                        return;
+                        if (!UIManager.Instance.IsNewDirTextActiv())
+                        {
+                            needDir = true;
+                            UIManager.Instance.SetNewDirText(true);
+                            Debug.Log("Choose a new Direction");
+                        }
                     }
                 }
-                else if (numberOfPoints == 0) //Change Activ Player after all Moves were done
+                else if (MovePoints == 0) //Change Activ Player after all Moves were done
                 {
                     moveDirection = new Vector2(); //Reset Move Direction
-                    numberOfPoints = -1; //Reset the Movement Points so the Update will be skipt
+                    MovePoints = -1; //Reset the Movement Points so the Update will be skipt
                     PlayfieldManager.SetNextPlayerActiv();
                 }
         }
@@ -110,9 +124,13 @@ namespace Playfield
                 Vector2 tmpMove = _value.Get<Vector2>();
                 if (tmpMove == -moveDirection) return;
                 moveDirection = tmpMove;
-                needDir = false;
-                destination = GridFieldGenerator.m_Grid.Field[m_BasePlayer.m_PlayfieldPos.x + (int)moveDirection.x, m_BasePlayer.m_PlayfieldPos.y + (int)moveDirection.y].StayPos;
-                MovePlayer = true;
+                if (PlayfieldManager.CheckForMove(m_BasePlayer.m_PlayfieldPos, moveDirection)) //If the Input Dir was accepted
+                {
+                    UIManager.Instance.SetNewDirText(false);
+                    needDir = false;
+                    destination = GridFieldGenerator.m_Grid.Field[m_BasePlayer.m_PlayfieldPos.x + (int)moveDirection.x, m_BasePlayer.m_PlayfieldPos.y + (int)moveDirection.y].StayPos;
+                    MovePlayer = true;
+                }
             }
         }
 
@@ -121,9 +139,9 @@ namespace Playfield
             if (PlayfieldManager.m_activPlayer == this)
             {
                 System.Random rnd = new System.Random();
-                numberOfPoints = rnd.Next(9, 15);
+                MovePoints = rnd.Next(9, 15);
                 needDir = true;
-                Debug.Log("You get a " + numberOfPoints);
+                Debug.Log("You get a " + MovePoints);
             }
         }
     }

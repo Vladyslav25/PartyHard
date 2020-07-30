@@ -21,6 +21,7 @@ public class BasePlayer
     public InputActionAsset m_inputActionRef { get; private set; } //Ref to the ActionMap
     public InputControlScheme m_ControlScheme { get; private set; } //The used ControlScheme
     public int m_Id { get; private set; } //The Player ID
+    public int m_Points { get; private set; }
     public COLOR m_color { get; private set; } // The Color the Player have
     public GameObject m_objRef { get; private set; } // The Ref to the GameObject of the Player
 
@@ -103,5 +104,14 @@ public class BasePlayer
                 return true;
             }
         return false;
+    }
+
+    public void AddPlayerPoint()
+    {
+        m_Points++;
+    }
+    public void RemovePlayerPoint()
+    {
+        m_Points--;
     }
 }

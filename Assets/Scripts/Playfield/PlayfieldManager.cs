@@ -6,12 +6,14 @@ namespace Playfield
 {
     public class PlayfieldManager : MonoBehaviour
     {
+        private CameraMovement m_camMovement;
+        
         static GameObject m_activPlayerObj;
         public static Player m_activPlayer;
 
         private static PlayfieldManager m_instance;
 
-        public PlayfieldManager Instance
+        public static PlayfieldManager Instance
         {
             get
             {
@@ -21,7 +23,7 @@ namespace Playfield
 
                     if (m_instance == null)
                     {
-                        GameObject container = new GameObject("DataManager");
+                        GameObject container = new GameObject("PlayfieldManager");
                         m_instance = container.AddComponent<PlayfieldManager>();
                     }
                 }
@@ -39,11 +41,18 @@ namespace Playfield
             {
                 m_instance = this;
             }
+
+            m_camMovement = Camera.main.gameObject.GetComponent<CameraMovement>();
         }
 
         private void Start()
         {
             SetActivPlayer(0);
+        }
+
+        private void Update()
+        {
+            m_camMovement.MoveCameraToPlayer(m_activPlayer.m_BasePlayer);
         }
 
         private static void SetActivPlayer(int _id)
@@ -64,7 +73,7 @@ namespace Playfield
                 DataManager.Instance.GetPlayfiledData().Round++;
                 Debug.Log("NextRound!!!");
             }
-
+            UIManager.Instance.ClearMovePoints();
             Debug.Log("Its your Turn Player: " + (m_activPlayer.m_BasePlayer.m_Id + 1));
         }
 

@@ -65,4 +65,13 @@ public class PlayersData : ScriptableObject
         }
         return null;
     }
+
+    public void AddPoints(BasePlayer _player, int _amountToAdd)
+    {
+        if (AllPlayers.Contains(_player))
+            for (int i = 0; i < _amountToAdd; i++)
+            {
+                _player.AddPlayerPoint();
+            }
+    }
 }
