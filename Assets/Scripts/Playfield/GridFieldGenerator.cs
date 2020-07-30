@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
+using UnityEngine.InputSystem;
 
 namespace Playfield
 {
@@ -21,11 +23,10 @@ namespace Playfield
         [Header("Prefabs")]
         public GameObject[] PlayerPrefab;
 
-
         /// <summary>
         /// The Grid-Component in the Field GameObject
         /// </summary>
-        private Grid grid;
+        public static Grid m_Grid;
         private Vector3[] SpawnPoints = new Vector3[4];
 
         #endregion
@@ -39,33 +40,34 @@ namespace Playfield
                 UnityEngine.Random.InitState(seed.GetHashCode());
         }
 
-        void Start()
+        private void Start()
         {
-            grid = Field.GetComponent<Grid>();
-            ENodeType[,] tmp_field = new ENodeType[grid.Field.GetLength(0), grid.Field.GetLength(1)];
+            m_Grid = Field.GetComponent<Grid>();
+            if (m_Grid == null) Debug.LogError("No Grid in Field found");
+            ENodeType[,] tmp_field = new ENodeType[m_Grid.Field.GetLength(0), m_Grid.Field.GetLength(1)];
 
             if (DataManager.Instance.GetPlayfiledData().Field == null)
             {
                 #region -Generate Field-
-                bool[,] isoGrid = new bool[grid.Field.GetLength(0), grid.Field.GetLength(1)];
+                bool[,] isoGrid = new bool[m_Grid.Field.GetLength(0), m_Grid.Field.GetLength(1)];
 
                 //Fill a quater of the isoGrid
-                for (int x = 0; x < grid.Size.x / 2 + 1; x++)
+                for (int x = 0; x < m_Grid.Size.x / 2 + 1; x++)
                 {
-                    for (int y = 0; y < grid.Size.y / 2 + 1; y++)
+                    for (int y = 0; y < m_Grid.Size.y / 2 + 1; y++)
                     {
                         isoGrid[x, y] = false;
 
                         if (x == 0 || y == 0
 
-                            || x == grid.Size.x - 1 || y == grid.Size.y - 1         //Create border
-                            || x == grid.Size.x / 2 || y == grid.Size.y / 2 ||      //Create midcross
+                            || x == m_Grid.Size.x - 1 || y == m_Grid.Size.y - 1         //Create border
+                            || x == m_Grid.Size.x / 2 || y == m_Grid.Size.y / 2 ||      //Create midcross
 
-                            x == grid.Size.x / 4 &&                                     // Create left verticel Side
-                            y > grid.Size.y / 4 - 1 && y < grid.Size.y * 3 / 4 + 1 ||   // Need +1 and -1 to get the corner
+                            x == m_Grid.Size.x / 4 &&                                     // Create left verticel Side
+                            y > m_Grid.Size.y / 4 - 1 && y < m_Grid.Size.y * 3 / 4 + 1 ||   // Need +1 and -1 to get the corner
 
-                            y == grid.Size.y / 4 &&                                     // Create botton horizontal Side
-                            x > grid.Size.x / 4 - 1 && x < grid.Size.x * 3 / 4 + 1
+                            y == m_Grid.Size.y / 4 &&                                     // Create botton horizontal Side
+                            x > m_Grid.Size.x / 4 - 1 && x < m_Grid.Size.x * 3 / 4 + 1
                             )
                         {
                             isoGrid[x, y] = true;
@@ -77,9 +79,9 @@ namespace Playfield
                 bool[,] isoGrid3 = FlipVertical(isoGrid);
                 bool[,] isoGrid4 = FlipVertical(isoGrid2);
 
-                for (int x = 0; x < grid.Size.x; x++)
+                for (int x = 0; x < m_Grid.Size.x; x++)
                 {
-                    for (int y = 0; y < grid.Size.y; y++)
+                    for (int y = 0; y < m_Grid.Size.y; y++)
                     {
                         if (isoGrid[x, y] || isoGrid2[x, y] || isoGrid3[x, y] || isoGrid4[x, y])
                             tmp_field[x, y] = (ENodeType)UnityEngine.Random.Range(1, 7);
@@ -88,14 +90,12 @@ namespace Playfield
 
                 #endregion
 
-                grid.CreatField(tmp_field);
+                m_Grid.CreatField(tmp_field);
 
-                Vector3 offset = Vector3.up * 3f;
-
-                SpawnPoints[0] = offset + grid.Field[0, 0].Pos;
-                SpawnPoints[1] = offset + grid.Field[0, grid.Size.y - 1].Pos;
-                SpawnPoints[2] = offset + grid.Field[grid.Size.x - 1, 0].Pos;
-                SpawnPoints[3] = offset + grid.Field[grid.Size.x - 1, grid.Size.y - 1].Pos;
+                SpawnPoints[0] = m_Grid.Field[0, 0].StayPos;
+                SpawnPoints[1] = m_Grid.Field[0, m_Grid.Size.y - 1].StayPos;
+                SpawnPoints[2] = m_Grid.Field[m_Grid.Size.x - 1, 0].StayPos;
+                SpawnPoints[3] = m_Grid.Field[m_Grid.Size.x - 1, m_Grid.Size.y - 1].StayPos;
                 if (DataManager.Instance.GetPlayerData() != null)
                 {
                     LoadPlayer(true);
@@ -103,7 +103,7 @@ namespace Playfield
             }
             else
             {
-                grid.CreatField(DataManager.Instance.GetPlayfiledData().Field);
+                m_Grid.CreatField(DataManager.Instance.GetPlayfiledData().Field);
 
                 if (DataManager.Instance.GetPlayerData() != null)
                 {
@@ -113,20 +113,28 @@ namespace Playfield
         }
         #endregion
 
-        private void LoadPlayer(bool _setOnSpwan = false)
+        public void LoadPlayer(bool _setOnSpwan = false)
         {
             for (int i = 0; i < DataManager.Instance.GetPlayerData().PlayerCount; i++)
             {
                 BasePlayer bPlayerTmp = DataManager.Instance.GetPlayerData().GetPlayerByID(i);
-                GameObject obj;
+                GameObject obj = null;
                 if (_setOnSpwan)
-                    obj = Instantiate(PlayerPrefab[i], SpawnPoints[i], Quaternion.Euler(0, 0, 0));
+                {
+                    //obj = Instantiate(PlayerPrefab[i], SpawnPoints[i], Quaternion.Euler(0, 0, 0));
+                    DataManager.Instance.GetPlayerData().GetPlayerByID(i).m_PlayfieldPos = new Vector2Int((int)SpawnPoints[i].x, (int)SpawnPoints[i].z);
+                    bPlayerTmp.SetPlayerInput(PlayerInput.Instantiate(PlayerPrefab[i], i, DataManager.Instance.GetPlayerData().GetPlayerByID(i).m_ControlScheme.name));
+                    bPlayerTmp.m_objRef.transform.position = SpawnPoints[i];
+                }
                 else
-                    obj = Instantiate(PlayerPrefab[i], DataManager.Instance.GetPlayerData().GetPlayerByID(i).m_PlayfieldPos, Quaternion.Euler(0, 0, 0));
+                {
+                    Vector2Int playerPos = DataManager.Instance.GetPlayerData().GetPlayerByID(i).m_PlayfieldPos;
+                    //obj = Instantiate(PlayerPrefab[i], m_Grid.Field[playerPos.x, playerPos.y].StayPos, Quaternion.Euler(0, 0, 0));
+                    bPlayerTmp.SetPlayerInput(PlayerInput.Instantiate(PlayerPrefab[i], i, DataManager.Instance.GetPlayerData().GetPlayerByID(i).m_ControlScheme.name));
+                    bPlayerTmp.m_objRef.transform.position = m_Grid.Field[playerPos.x, playerPos.y].StayPos;
+                }
 
-                bPlayerTmp.SetGameObjectRef(obj);
-                obj.GetComponent<Playfield.Player>().m_BasePlayer = bPlayerTmp;
-                bPlayerTmp.SetInputControlScheme(bPlayerTmp.m_ControlScheme.name);
+                bPlayerTmp.m_objRef.GetComponent<Player>().SetBasePlayer(bPlayerTmp);
             }
         }
 

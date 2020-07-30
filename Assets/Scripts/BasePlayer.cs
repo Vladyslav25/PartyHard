@@ -21,12 +21,15 @@ public class BasePlayer
     public InputActionAsset m_inputActionRef { get; private set; } //Ref to the ActionMap
     public InputControlScheme m_ControlScheme { get; private set; } //The used ControlScheme
     public int m_Id { get; private set; } //The Player ID
+    public int m_Points { get; private set; }
     public COLOR m_color { get; private set; } // The Color the Player have
     public GameObject m_objRef { get; private set; } // The Ref to the GameObject of the Player
 
-    public Vector3 m_PlayfieldPos;
+    public Vector2Int m_PlayfieldPos;
 
     private PlayerInput m_playerInputRef = null;
+
+    private InputDevice[] m_device = null;
 
     /// <param name="_inputActionsRef">The Ref to the ActionMap</param>
     /// <param name="_playerInput">The Ref to the PlayerInput-Component</param>
@@ -41,7 +44,7 @@ public class BasePlayer
         m_color = (COLOR)_id;
     }
 
-    private void SetPlayerInput(PlayerInput _playerInput)
+    public void SetPlayerInput(PlayerInput _playerInput)
     {
         if (_playerInput != null)
         {
@@ -72,7 +75,10 @@ public class BasePlayer
         foreach (InputControlScheme cs in m_inputActionRef.controlSchemes)
             if (cs.name == _name)
             {
+                if (m_device != null)
+                    m_playerInputRef.SwitchCurrentControlScheme(cs.name, m_device);
                 m_ControlScheme = cs;
+                m_device = m_playerInputRef.devices.ToArray();
                 return true;
             }
 
@@ -98,5 +104,14 @@ public class BasePlayer
                 return true;
             }
         return false;
+    }
+
+    public void AddPlayerPoint()
+    {
+        m_Points++;
+    }
+    public void RemovePlayerPoint()
+    {
+        m_Points--;
     }
 }

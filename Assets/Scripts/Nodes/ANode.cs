@@ -35,7 +35,7 @@ namespace Playfield.Node
         public ANode(Vector3 _pos, Grid _grid, GameObject _obj = null)
         {
             Pos = _pos;
-            StayPos = _pos + new Vector3(.5f, 0, .5f);
+            StayPos = _pos + new Vector3(.5f, 1.5f, .5f);
             m_grid = _grid;
             obj = _obj;
         }

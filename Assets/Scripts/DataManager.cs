@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,8 +45,15 @@ public class DataManager : MonoBehaviour
             SetHoverEffectSettings(hoverEffectSettingRef);
             SetPlayerDataRef(playerDataRef);
 
+            ResetData();
+
             DontDestroyOnLoad(this.gameObject);
         }
+    }
+
+    private void ResetData()
+    {
+        playfieldDataRef.Round = 0;
     }
 
     public PlayfieldData GetPlayfiledData()

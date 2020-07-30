@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XR.Haptics;
 
 [CreateAssetMenu(fileName = "PlayersData", menuName = "ScObj/Data/Players", order = 1)]
 public class PlayersData : ScriptableObject
 {
     public List<BasePlayer> AllPlayers = new List<BasePlayer>();
 
-    public int PlayerCount 
+    public int PlayerCount
     {
         get
         {
@@ -63,5 +64,14 @@ public class PlayersData : ScriptableObject
                 return player;
         }
         return null;
+    }
+
+    public void AddPoints(BasePlayer _player, int _amountToAdd)
+    {
+        if (AllPlayers.Contains(_player))
+            for (int i = 0; i < _amountToAdd; i++)
+            {
+                _player.AddPlayerPoint();
+            }
     }
 }
